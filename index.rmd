@@ -1,0 +1,112 @@
+---
+title       : Developing Data Products - Forecast of Heathcare vs GDP
+subtitle    : 
+author      : GM
+job         : 
+framework   : shower        # {io2012, html5slides, shower, dzslides, ...}
+highlighter : highlight.js  # {highlight.js, prettify, highlight}
+hitheme     : tomorrow      # 
+widgets     : []            # {mathjax, quiz, bootstrap}
+mode        : selfcontained # {standalone, draft}
+knit        : slidify::knit2slides
+---
+
+## Forecasting escalating Healthcare costs vs GDP 
+
+1. BLS Medical Expenditure Panel Survey (MEPS) account data from 2000-2010
+2. GDP and topline healthcare spending fit to a time series
+3. The app forecasts into the future both the GDP and Healthcare costs
+4. Forecasts are plotted with the 95% confidence interval
+
+--- .class #id 
+
+## Results
+
+1. Healthcare costs are forecast to expand at the current rate
+2. Surprisinging GDP did not increase, instead the 95% interval widened
+3. Subsequent slides show the R calculations
+4. Check the Shiny app to follow along
+
+--- .class #id 
+
+## 50 year forecast server code run output
+
+```{r, echo=FALSE}
+## Implement caching
+getDat <- function() {
+  
+  library(openxlsx)
+  library(forecast)
+  setwd('C:/Users/gautam.Mom81/Documents/courseraDataScienceSpecialization/developingDataProducts/project')
+  
+  dfile <- 'data/MEPS.xlsx'
+  dat <-  openxlsx::read.xlsx(dfile, startRow=2, sheet=3)
+  
+  # add the GDP data
+  g <- openxlsx::read.xlsx(dfile, sheet = 4, rows=17:20)
+  g <- g[1,]
+  colnames(g) <- colnames(dat)
+  
+  dat <- rbind(dat,g)
+  categories <- dat[[1]]
+  
+  dat <-  dat[,-1]
+  dat <- t(dat)  # transpose the data frame and remove the first column
+  colnames(dat) <- categories
+  
+  dat <- data.frame(dat)
+  dat$Year <- as.numeric(rownames(dat))
+  colnames(dat)[36] <- 'GDP'
+  datRet <- subset(dat, select=c('Year', 'GDP', 'Health'))
+  datRetOuter <<-datRet
+  datRet
+}
+
+getForecast <- function(numYears=40) {
+  
+  dat <- getDat()
+
+  tsHlth <-  ts(dat$Health, start = 2000)
+  tsGdp <-  ts(dat$GDP, start = 2000)
+ 
+  fcastHlth <- data.frame(forecast(tsHlth,  h = numYears, level=95, allow.multiplicative.trend=TRUE))
+  fcastGdp <- data.frame(forecast(tsGdp,  h = numYears, level=95, allow.multiplicative.trend=TRUE))
+  
+  f <- data.frame(Year = as.numeric(rownames(fcastHlth)),
+                 Health = fcastHlth$Point.Forecast,
+                 HealthLo = fcastHlth$Lo.95,
+                 HealthHi = fcastHlth$Hi.95,
+                 GDP = fcastGdp$Point.Forecast,
+                 GDPLo = fcastGdp$Lo.95,
+                 GDPHi = fcastGdp$Hi.95
+                 )
+  
+}
+
+df <- getForecast(50)
+df2 <- subset(df,select=c('Year', 'GDP', 'Health'))
+head(df2)
+```
+
+
+---
+
+## Forecasting Code snippet
+
+```{r, eval = FALSE}
+
+  tsHlth <-  ts(dat$Health, start = 2000)
+  tsGdp <-  ts(dat$GDP, start = 2000)
+ 
+  fcastHlth <- data.frame(forecast(tsHlth,  h = numYears, level=95, allow.multiplicative.trend=TRUE))
+  fcastGdp <- data.frame(forecast(tsGdp,  h = numYears, level=95, allow.multiplicative.trend=TRUE))
+
+```
+
+---
+
+
+## Conclusion
+
+Healthcare costs increase is unsustainable !!
+
