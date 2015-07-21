@@ -1,0 +1,106 @@
+<!DOCTYPE HTML>
+<html lang="en-US">
+<head>
+	<title>Developing Data Products - Forecast of Heathcare vs GDP</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=1274, user-scalable=no">
+	<meta name="description" content="Developing Data Products - Forecast of Heathcare vs GDP">
+	<meta name="author" content="GM">
+	<meta name="generator" content="slidify" />
+	<!-- LOAD STYLE SHEETS -->
+	<link rel="stylesheet" href="libraries/frameworks/shower/themes/ribbon/styles/screen.css">
+	<link rel="stylesheet" media="print"
+	  href="libraries/frameworks/shower/themes/ribbon/styles/print.css">
+	<link rel="stylesheet" href="libraries/highlighters/highlight.js/css/tomorrow.css">  
+	<!--
+		To apply styles to the certain slides
+		use slide ID to get needed elements
+		-->
+	<style>
+		#Cover h2 {
+      margin:65px 0 0;
+			color:#FFF;
+			text-align:center;
+			font-size:70px;
+			}
+		#FitToWidth h2,
+		#FitToHeight h2 {
+			color:#FFF;
+			text-align:center;
+			}
+	</style> 
+</head>
+<body class="list">
+  <header class="caption">
+  	<h1>Developing Data Products - Forecast of Heathcare vs GDP</h1>
+	</header>
+  <section class="slide " id="slide-1">
+  <div>
+    <h2>Forecasting escalating Healthcare costs vs GDP</h2>
+    <ol>
+<li>BLS Medical Expenditure Panel Survey (MEPS) account data from 2000-2010</li>
+<li>GDP and topline healthcare spending fit to a time series</li>
+<li>The app forecasts into the future both the GDP and Healthcare costs</li>
+<li>Forecasts are plotted with the 95% confidence interval</li>
+</ol>
+
+  </div>
+</section>
+<section class="slide class" id="id">
+  <div>
+    <h2>Results</h2>
+    <ol>
+<li>Healthcare costs are forecast to expand at the current rate</li>
+<li>Surprisinging GDP did not increase, instead the 95% interval widened</li>
+<li>Subsequent slides show the R calculations</li>
+<li>Check the Shiny app to follow along</li>
+</ol>
+
+  </div>
+</section>
+<section class="slide class" id="id">
+  <div>
+    <h2>50 year forecast server code run output</h2>
+    <pre><code>##   Year     GDP   Health
+## 1 2011 14756.7 2072.350
+## 2 2012 14756.7 2121.792
+## 3 2013 14756.7 2172.413
+## 4 2014 14756.7 2224.242
+## 5 2015 14756.7 2277.308
+## 6 2016 14756.7 2331.640
+</code></pre>
+
+  </div>
+</section>
+<section class="slide " id="slide-4">
+  <div>
+    <h2>Forecasting Code snippet</h2>
+    <pre><code class="r">  tsHlth &lt;-  ts(dat$Health, start = 2000)
+  tsGdp &lt;-  ts(dat$GDP, start = 2000)
+
+  fcastHlth &lt;- data.frame(forecast(tsHlth,  h = numYears, level=95, allow.multiplicative.trend=TRUE))
+  fcastGdp &lt;- data.frame(forecast(tsGdp,  h = numYears, level=95, allow.multiplicative.trend=TRUE))
+</code></pre>
+
+  </div>
+</section>
+<section class="slide " id="slide-5">
+  <div>
+    <h2>Conclusion</h2>
+    <p>Healthcare costs increase is unsustainable !!</p>
+
+  </div>
+</section>
+  <div class="progress">
+    <div></div>
+  </div>
+	<script src="libraries/frameworks/shower/shower.js"></script>
+	<!-- LOAD HIGHLIGHTER JS FILES -->
+	<script src="libraries/highlighters/highlight.js/highlight.pack.js"></script>
+	<script>hljs.initHighlightingOnLoad();</script>
+	<!-- DONE LOADING HIGHLIGHTER JS FILES -->
+	 
+		<!-- Copyright © 2010–2012 Vadim Makeev — pepelsbey.net -->
+	<!-- Photos by John Carey — fiftyfootshadows.net -->
+</body>
+</html>
