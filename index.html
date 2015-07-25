@@ -8,10 +8,10 @@
 	<meta name="author" content="GM">
 	<meta name="generator" content="slidify" />
 	<!-- LOAD STYLE SHEETS -->
-	<link rel="stylesheet" href="libraries/frameworks/shower/themes/ribbon/styles/screen.css">
+	<link rel="stylesheet" href="http://slidifylibraries2.googlecode.com/git/inst/libraries/frameworks/shower/themes/ribbon/styles/screen.css">
 	<link rel="stylesheet" media="print"
-	  href="libraries/frameworks/shower/themes/ribbon/styles/print.css">
-	<link rel="stylesheet" href="libraries/highlighters/highlight.js/css/tomorrow.css">  
+	  href="http://slidifylibraries2.googlecode.com/git/inst/libraries/frameworks/shower/themes/ribbon/styles/print.css">
+	<link rel="stylesheet" href="http://slidifylibraries2.googlecode.com/git/inst/libraries/highlighters/highlight.js/css/tomorrow.css">  
 	<!--
 		To apply styles to the certain slides
 		use slide ID to get needed elements
@@ -46,7 +46,7 @@
 
   </div>
 </section>
-<section class="slide class" id="id">
+<section class="slide " id="slide-2">
   <div>
     <h2>Results</h2>
     <ol>
@@ -58,7 +58,7 @@
 
   </div>
 </section>
-<section class="slide class" id="id">
+<section class="slide " id="slide-3">
   <div>
     <h2>50 year forecast server code run output</h2>
     <pre><code>##   Year     GDP   Health
@@ -75,11 +75,13 @@
 <section class="slide " id="slide-4">
   <div>
     <h2>Forecasting Code snippet</h2>
-    <pre><code class="r">  tsHlth &lt;-  ts(dat$Health, start = 2000)
+    <pre><code>
+  tsHlth &lt;-  ts(dat$Health, start = 2000)
   tsGdp &lt;-  ts(dat$GDP, start = 2000)
 
   fcastHlth &lt;- data.frame(forecast(tsHlth,  h = numYears, level=95, allow.multiplicative.trend=TRUE))
   fcastGdp &lt;- data.frame(forecast(tsGdp,  h = numYears, level=95, allow.multiplicative.trend=TRUE))
+
 </code></pre>
 
   </div>
@@ -87,16 +89,16 @@
 <section class="slide " id="slide-5">
   <div>
     <h2>Conclusion</h2>
-    <p>Healthcare costs increase is unsustainable !!</p>
+    <p>Healthcare spending is unsustainable !!</p>
 
   </div>
 </section>
   <div class="progress">
     <div></div>
   </div>
-	<script src="libraries/frameworks/shower/shower.js"></script>
+	<script src="http://slidifylibraries2.googlecode.com/git/inst/libraries/frameworks/shower/shower.js"></script>
 	<!-- LOAD HIGHLIGHTER JS FILES -->
-	<script src="libraries/highlighters/highlight.js/highlight.pack.js"></script>
+	<script src="http://slidifylibraries2.googlecode.com/git/inst/libraries/highlighters/highlight.js/highlight.pack.js"></script>
 	<script>hljs.initHighlightingOnLoad();</script>
 	<!-- DONE LOADING HIGHLIGHTER JS FILES -->
 	 

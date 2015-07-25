@@ -7,7 +7,7 @@ framework   : shower        # {io2012, html5slides, shower, dzslides, ...}
 highlighter : highlight.js  # {highlight.js, prettify, highlight}
 hitheme     : tomorrow      # 
 widgets     : []            # {mathjax, quiz, bootstrap}
-mode        : selfcontained # {standalone, draft}
+mode        : standalone # {standalone, draft}
 knit        : slidify::knit2slides
 ---
 
@@ -18,7 +18,7 @@ knit        : slidify::knit2slides
 3. The app forecasts into the future both the GDP and Healthcare costs
 4. Forecasts are plotted with the 95% confidence interval
 
---- .class #id 
+--- 
 
 ## Results
 
@@ -27,7 +27,7 @@ knit        : slidify::knit2slides
 3. Subsequent slides show the R calculations
 4. Check the Shiny app to follow along
 
---- .class #id 
+---
 
 ## 50 year forecast server code run output
 
@@ -93,7 +93,7 @@ head(df2)
 
 ## Forecasting Code snippet
 
-```{r, eval = FALSE}
+```
 
   tsHlth <-  ts(dat$Health, start = 2000)
   tsGdp <-  ts(dat$GDP, start = 2000)
@@ -108,5 +108,5 @@ head(df2)
 
 ## Conclusion
 
-Healthcare costs increase is unsustainable !!
+Healthcare spending is unsustainable !!
 
